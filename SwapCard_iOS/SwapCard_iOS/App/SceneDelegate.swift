@@ -22,10 +22,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let network = NetworkClient(baseUrl: url)
         let service = ArtistService.init(networkClient: network.apollo)
-        
         let viewController = ArtistListViewController()
         let presenter = ArtistListPresenter(view: viewController)
-        let interactor = ArtistListInteractor(artistService: service, presenter: presenter)
+        let storage = PersistanceStorageHelper<[Artist]>()
+        let bookmarkRepo = BookmarkRepoImplementation(storage: storage)
+        let interactor = ArtistListInteractor(artistService: service, presenter: presenter, bookmarkRepo: bookmarkRepo)
         let actions  = ArtistListViewControllerActions()
         
         actions.onSearchWithTerm = interactor.fetchArtistList(query:)
