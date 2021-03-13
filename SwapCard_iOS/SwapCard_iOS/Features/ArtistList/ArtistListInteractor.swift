@@ -17,6 +17,7 @@ final class ArtistListInteractor: ArtistListInteractorProtocol {
     let artistService: ArtistServiceProtocol
     let presenter: ArtistListPresenterProtocol
     let bookmarkRepo: BookmarkRepository
+    
     var cursor: String?
     var query: String?
     var hasMoreItems: Bool?

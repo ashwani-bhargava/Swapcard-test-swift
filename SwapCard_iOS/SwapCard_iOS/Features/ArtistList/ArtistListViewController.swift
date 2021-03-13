@@ -8,10 +8,10 @@
 import UIKit
 
 class ArtistListViewControllerActions {
-    var onViewLoad: (() -> (Void))?
+    var onViewLoad: (() -> Void)?
+    var onViewAppear: (() -> Void)?
     var onPullToRefresh: (() -> Void)?
     var onReachingEndOfItems: (() -> Void)?
-    var onSearchWithTerm: ((String) -> Void)?
     var onBookMarkTapped: ((_ index: Int) -> Void)?
 }
 
@@ -22,7 +22,6 @@ protocol ArtistListDisplayProtocol: class {
 
 final class ArtistListViewController: UIViewController, ArtistListDisplayProtocol {
     
-    @IBOutlet private weak var searchBar: UISearchBar!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var collectionView: UICollectionView!
     
@@ -52,6 +51,11 @@ final class ArtistListViewController: UIViewController, ArtistListDisplayProtoco
     }
     
     //MARK:- View Lifecycle and Config
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        actions?.onViewAppear?()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         actions?.onViewLoad?()
@@ -87,13 +91,8 @@ final class ArtistListViewController: UIViewController, ArtistListDisplayProtoco
     
     //MARK:- View configuration
     private func configureUI() {
-        configureSearchBar()
         configureCollectionView()
         activityIndicator.hidesWhenStopped = true
-    }
-    
-    private func configureSearchBar() {
-        self.searchBar.delegate = self
     }
     
     private func configureCollectionView() {
@@ -122,10 +121,5 @@ extension ArtistListViewController: UICollectionViewDelegate {
             //reached bottom
             actions?.onReachingEndOfItems?()
         }
-    }
-}
-extension ArtistListViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        actions?.onSearchWithTerm?(searchText)
     }
 }

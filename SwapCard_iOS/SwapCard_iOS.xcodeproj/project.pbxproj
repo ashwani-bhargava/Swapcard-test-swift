@@ -35,6 +35,9 @@
 		4DCE267A25FBF64A00FED9CC /* BookmarkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCE267925FBF64A00FED9CC /* BookmarkRepository.swift */; };
 		4DCE268525FC9FB300FED9CC /* PersistanceStorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCE268425FC9FB300FED9CC /* PersistanceStorageHelper.swift */; };
 		4DCE268F25FCD17C00FED9CC /* BookmarkListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCE268E25FCD17C00FED9CC /* BookmarkListInteractor.swift */; };
+		4DCE269925FD497300FED9CC /* SearchContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCE269725FD497300FED9CC /* SearchContainerViewController.swift */; };
+		4DCE269A25FD497300FED9CC /* SearchContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DCE269825FD497300FED9CC /* SearchContainerViewController.xib */; };
+		4DCE26A225FD4D0400FED9CC /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCE26A125FD4D0400FED9CC /* UIView+Constraints.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +90,9 @@
 		4DCE267925FBF64A00FED9CC /* BookmarkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRepository.swift; sourceTree = "<group>"; };
 		4DCE268425FC9FB300FED9CC /* PersistanceStorageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceStorageHelper.swift; sourceTree = "<group>"; };
 		4DCE268E25FCD17C00FED9CC /* BookmarkListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListInteractor.swift; sourceTree = "<group>"; };
+		4DCE269725FD497300FED9CC /* SearchContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContainerViewController.swift; sourceTree = "<group>"; };
+		4DCE269825FD497300FED9CC /* SearchContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchContainerViewController.xib; sourceTree = "<group>"; };
+		4DCE26A125FD4D0400FED9CC /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				4D84C12125FA8A480035EB43 /* NibLoadable.swift */,
+				4DCE26A125FD4D0400FED9CC /* UIView+Constraints.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -214,6 +221,7 @@
 		4DCC11DD25F38CBB00956481 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				4DCE269625FD494100FED9CC /* Search */,
 				4DCE268C25FCD15300FED9CC /* BookMarkList */,
 				4DCC11DE25F38CCB00956481 /* ArtistList */,
 			);
@@ -273,6 +281,15 @@
 				4DCE268E25FCD17C00FED9CC /* BookmarkListInteractor.swift */,
 			);
 			path = BookMarkList;
+			sourceTree = "<group>";
+		};
+		4DCE269625FD494100FED9CC /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				4DCE269725FD497300FED9CC /* SearchContainerViewController.swift */,
+				4DCE269825FD497300FED9CC /* SearchContainerViewController.xib */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -388,6 +405,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DCE269A25FD497300FED9CC /* SearchContainerViewController.xib in Resources */,
 				4DCC118C25F2693300956481 /* LaunchScreen.storyboard in Resources */,
 				4DCC11E225F38D4500956481 /* ArtistListViewController.xib in Resources */,
 				4DCC11C325F2705500956481 /* ArtistList.graphql in Resources */,
@@ -445,6 +463,7 @@
 				4DCE268525FC9FB300FED9CC /* PersistanceStorageHelper.swift in Sources */,
 				4DCC120A25F511AB00956481 /* ArtistService.swift in Sources */,
 				4DCC11FB25F50FCE00956481 /* Artist.swift in Sources */,
+				4DCE269925FD497300FED9CC /* SearchContainerViewController.swift in Sources */,
 				4DCC11ED25F394F900956481 /* ArtistListViewModel.swift in Sources */,
 				4DCC11CB25F2715500956481 /* API.swift in Sources */,
 				4DCC118225F2693200956481 /* SceneDelegate.swift in Sources */,
@@ -454,6 +473,7 @@
 				4D84C11525FA89FF0035EB43 /* ArtistListCollectionViewCell.swift in Sources */,
 				4DCE268F25FCD17C00FED9CC /* BookmarkListInteractor.swift in Sources */,
 				4DCC11F225F3955600956481 /* ArtistListPresenter.swift in Sources */,
+				4DCE26A225FD4D0400FED9CC /* UIView+Constraints.swift in Sources */,
 				4DCE267A25FBF64A00FED9CC /* BookmarkRepository.swift in Sources */,
 				4DCC122525F5576900956481 /* NetworkClient.swift in Sources */,
 			);

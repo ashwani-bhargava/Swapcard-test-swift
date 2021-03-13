@@ -19,24 +19,55 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let scene = (scene as? UIWindowScene), let url = URL(string: "https://graphbrainz.herokuapp.com/") else { return }
         
-        
         let network = NetworkClient(baseUrl: url)
+        let storage = PersistanceStorageHelper<[Artist]>()
+        let bookmarkRepo = BookmarkRepoImplementation(storage: storage)
+        let tabBarController = UITabBarController()
+        let artistListVC = composeArtistListView(network: network, bookmarkRepo: bookmarkRepo)
+        let bookmarkVC = composeBookmarkListView(bookmarkRepo: bookmarkRepo)
+        tabBarController.setViewControllers([artistListVC, bookmarkVC], animated: false)
+        
+        self.window = UIWindow(windowScene: scene)
+        self.window?.rootViewController = tabBarController
+        self.window?.makeKeyAndVisible()
+    }
+    
+    func composeArtistListView(network: NetworkClient, bookmarkRepo: BookmarkRepository) -> UIViewController {
         let service = ArtistService.init(networkClient: network.apollo)
         let viewController = ArtistListViewController()
         let presenter = ArtistListPresenter(view: viewController)
-        let storage = PersistanceStorageHelper<[Artist]>()
-        let bookmarkRepo = BookmarkRepoImplementation(storage: storage)
-        let interactor = ArtistListInteractor(artistService: service, presenter: presenter, bookmarkRepo: bookmarkRepo)
         let actions  = ArtistListViewControllerActions()
         
-        actions.onSearchWithTerm = interactor.fetchArtistList(query:)
+        let searchAction = SearchContainerViewControllerActions()
+        
+        let searchController = SearchContainerViewController(resultViewController: viewController)
+        let interactor = ArtistListInteractor(artistService: service,
+                                              presenter: presenter,
+                                              bookmarkRepo: bookmarkRepo)
+        searchAction.onSearchWithTerm = interactor.fetchArtistList(query:)
         actions.onReachingEndOfItems = interactor.fetchMoreArtists
+        actions.onBookMarkTapped = interactor.bookMarkTapped(index:)
+        
+        let tabBarItem = UITabBarItem(title: "Search", image: nil, selectedImage: nil)
+        searchController.tabBarItem = tabBarItem
+        
+        
         viewController.actions = actions
-        
-        self.window = UIWindow(windowScene: scene)
-        self.window?.rootViewController = viewController
-        self.window?.makeKeyAndVisible()
-        
+        searchController.actions = searchAction
+        return searchController
+    }
+    
+    func composeBookmarkListView(bookmarkRepo: BookmarkRepository) -> UIViewController {
+        let viewController = ArtistListViewController()
+        let presenter = ArtistListPresenter(view: viewController)
+        let interactor = BookmarkListInteractor(bookmarkRepo: bookmarkRepo, presenter: presenter)
+        let actions  = ArtistListViewControllerActions()
+        actions.onViewAppear = interactor.fetchArtistList
+        actions.onBookMarkTapped = interactor.bookmarkTappedAt(index:)
+        let tabBarItem = UITabBarItem(title: "Bookmarks", image: nil, selectedImage: nil)
+        viewController.tabBarItem = tabBarItem
+        viewController.actions = actions
+        return viewController
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
